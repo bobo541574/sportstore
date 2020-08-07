@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col bg-dark text-white">
                 <a class="navbar-brand">SPORT STORE</a>
+                <CartSummary />
             </div>
         </div>
         <div class="row">
@@ -25,11 +26,13 @@
 <script>
     import ProductList from '@/components/ProductList.vue';
     import CategoryControls from '@/components/CategoryControls.vue';
+    import CartSummary from '@/components/CartSummary.vue';
     export default {
         name: "Store",
         components: {
             ProductList,
-            CategoryControls
+            CategoryControls,
+            CartSummary
         },
     }
 </script>
