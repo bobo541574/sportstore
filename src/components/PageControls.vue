@@ -1,13 +1,13 @@
 <template>
     <div class="row mt-2">
-        <div class="col-6 form-group">
+        <div class="col-3 form-group my-1">
             <select class="form-control" @change="changePageSize">
               <option value="4">4 per page</option>
               <option value="8">8 per page</option>
               <option value="12">12 per page</option>
             </select>
         </div>
-        <div class="col-6 text-right">
+        <div class="col text-right">
             <div class="btn-group mx-2 my-1">
                 <button v-for="i in pageNumbers" :key="i" 
                 class="btn" :class="i == currentPage ? 'btn-primary' : 'btn-secondary'" @click="setCurrentPage(i)">

@@ -25,7 +25,6 @@
         },
         methods: {
             hasValidationError(type) {
-                console.log(this.validation.$params);
                 return this.validation.$params.hasOwnProperty 
                     && !this.validation[type];
             }
