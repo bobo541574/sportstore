@@ -8,19 +8,39 @@
             </select>
         </div>
         <div class="col text-right">
-            <div class="btn-group mx-2 my-1">
+            <!-- <div class="btn-group mx-2 my-1">
                 <button v-for="i in pageNumbers" :key="i" 
                 class="btn" :class="i == currentPage ? 'btn-primary' : 'btn-secondary'" @click="setCurrentPage(i)">
                     {{ i }}
                 </button>
-            </div>
+            </div> -->
+            <button :disabled="currentPage == 1" @click="setCurrentPage(currentPage - 1)" class="btn btn-secondary mx-1">Previous</button>
+            <span v-if="currentPage > 4">
+                <button @click="setCurrentPage(1)" class="btn btn-secondary mx-1">
+                    1
+                </button>
+                <span class="h4"><b>...</b></span>
+            </span>
+            <span class="mx-1">
+                <button v-for="i in pageNumbers" :key="i" class="btn ml-1" :class="i == currentPage ? 'btn-primary' : 'btn-secondary'" @click="setCurrentPage(i)">{{ i }}
+                </button>
+            </span>
+            <span v-if="currentPage <= pageCount - 4"> 
+                <span class="h4"><b>...</b></span>
+                <button @click="setCurrentPage(pageCount)" class="btn btn-secondary mx-1">
+                    {{ pageCount }}
+                </button>
+            </span>
+            <button :disabled="currentPage == pageCount" @click="setCurrentPage(currentPage + 1)" class="btn btn-secondary mx-1">
+                Next
+            </button>
         </div>
     </div>
 </template>
 
 <script>
 
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
     export default {
         name: "PageControls",
@@ -28,13 +48,21 @@ import { mapState, mapGetters, mapMutations } from "vuex";
             ...mapState(["currentPage"]),
             ...mapGetters(["pageCount"]),
             pageNumbers() {
-                return [...Array(this.pageCount + 1).keys()].slice(1);
+                if (this.pageCount < 4) {
+                    return [...Array(this.pageCount + 1).keys()].slice(1);
+                } else if (this.currentPage <= 4) {
+                    return [1, 2, 3, 4, 5];
+                } else if (this.currentPage > this.pageCount - 4) {
+                    return [...Array(5).keys()].reverse().map(v => this.pageCount - v);
+                } else {
+                    return [this.currentPage - 1, this.currentPage, this.currentPage + 1];
+                }
             },
         },
         methods: {
-            ...mapMutations(['setCurrentPage', 'setPageSize']),
+            ...mapActions(['setCurrentPage', 'setPageSize']),
             changePageSize($event) {
-                this.setPageSize(Number($event.target.value));
+                this.setPageSize($event.target.value);
             },
         }
     }

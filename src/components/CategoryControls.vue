@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapMutations } from "vuex";
+    import { mapState, mapGetters, mapActions } from "vuex";
     export default {
         name: "CategoryControls",
         computed: {
@@ -17,7 +17,7 @@
             ...mapGetters(["categories"])
         },
         methods: {
-            ...mapMutations(["setCurrentCategory"])
+            ...mapActions(["setCurrentCategory"])
         }
     }
 </script>
