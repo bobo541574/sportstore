@@ -39,8 +39,8 @@ export default {
         storeCartData(context) {
             localStorage.setItem("cart", JSON.stringify(context.state.lines));
         },
-        clearCartDate(context) {
-            context.commit("setCartDate", []);
+        clearCartData(context) {
+            context.commit("setCartData", []);
         },
         initializeCart(context, store) {
             context.dispatch("loadCartData");
